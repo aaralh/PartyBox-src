@@ -3,6 +3,13 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './registerServiceWorker';
+import VueYoutube from 'vue-youtube';
+import VueSocketio  from 'vue-socket.io';
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);
+Vue.use(VueSocketio, '<IP:PORT>');
+Vue.use(VueYoutube);
 
 Vue.config.productionTip = false;
 
