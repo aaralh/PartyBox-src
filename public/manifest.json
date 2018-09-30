@@ -1,6 +1,6 @@
 {
-  "name": "partybox-ts",
-  "short_name": "partybox-ts",
+  "name": "partybox",
+  "short_name": "partybox",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",
