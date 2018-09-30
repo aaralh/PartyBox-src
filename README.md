@@ -1,21 +1,5 @@
-# partybox-ts
+# Partybox
 
-## Project setup
-```
-npm install
-```
+Source code for PartyBox. See in production [here](http://partybox.dy.fi:5000).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+PartyBox is playlist application where users can create rooms and invite friends to add and vote songs. Playing order is based on votes given.
