@@ -2,9 +2,9 @@
   <div>
     <div id="youtube_player_container" class="player_container" v-on:click.stop>
       <youtube class="youtube_player" :video-id="videoId" ref="youtube" @playing="playing" :player-vars="playerVars" @paused="paused" @ended="ended"></youtube>
-    </div>
-    <div class="close_button" v-on:click="close">
-      <i class="fas fa-times"></i>
+      <div class="close_button" v-on:click.stop="close">
+        <i class="fas fa-times"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -23,7 +23,8 @@ import { mapGetters } from 'vuex'
       videoId: this.$props.song.data.url,
       playerVars: {
         playsinline: 1,
-        controls: 0
+        controls: 0,
+        autoplay: 0
       },
     }
   },
@@ -271,4 +272,14 @@ iframe {
     bottom: 3%;
   }
 }
+
+    @media only screen 
+    and (min-device-width: 320px) 
+    and (max-device-width: 480px)
+    and (-webkit-min-device-pixel-ratio: 2)
+    and (orientation: portrait) {
+      .youtube_player {
+        pointer-events: initial;
+      }
+    }
 </style>

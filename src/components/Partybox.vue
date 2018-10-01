@@ -304,14 +304,17 @@ export default class Partybox extends Vue{
 <style>
 html {
   height: 100%;
+  overflow-x: hidden;
 }
 body {
   margin: 0px;
   background-color: lavender;
   background-image: url("../assets/background-party-compressed.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   height: calc(100vh - 40px - 13vh);
   max-height: 100vh;
+  max-width: 100vw;
 }
 </style>
