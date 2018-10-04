@@ -8,7 +8,7 @@ import VueSocketio  from 'vue-socket.io';
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
-Vue.use(VueSocketio, '<IP:PORT>');
+Vue.use(VueSocketio, 'http://partybox.dy.fi:5000');
 Vue.use(VueYoutube);
 
 Vue.config.productionTip = false;
