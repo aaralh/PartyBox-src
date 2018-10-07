@@ -178,7 +178,6 @@ export default class YoutubeComponent extends Vue {
 }
 
 .bottom_buttons_cancel {
-  margin-left: 10%;
   height: fit-content;
   padding: 10px;
   width: 80px;
@@ -191,7 +190,6 @@ export default class YoutubeComponent extends Vue {
 }
 
 .bottom_buttons_add {
-  margin-right: 10%;
   height: fit-content;
   width: 80px;
   padding: 10px;

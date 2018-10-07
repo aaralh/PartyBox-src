@@ -1,7 +1,10 @@
 <template>
   <div class="main_menu" v-on:click="clicked({id: -1})">
     <div class="main_menu_container" v-on:click.stop>
-      <main-menu-item v-on:clicked="clicked" :item="item" v-for="item in menuItems" v-if="item.type <= connection.type" :key="item.id"></main-menu-item>
+      <main-menu-item v-on:clicked="clicked" :item="item" v-for="item in menuItems" v-if="item.type === 0" :key="item.id"></main-menu-item>
+      <div class="main_menu_container_info">
+        <div class="room_info">Connected to room: {{ connection.roomId }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -92,6 +95,10 @@
   border-right: 1px solid lightgray;
   box-shadow: 5px 10px 18px #a8b3da;
   padding-top: 10px;
+}
+
+.main_menu_container_info {
+  margin-top: 20px;
 }
 
 

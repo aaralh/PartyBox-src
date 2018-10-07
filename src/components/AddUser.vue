@@ -58,7 +58,6 @@ export default class AddUser extends Vue {
   left: 0;
   height: 100vh;
   width: 100%;
-  background-color: black;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
 }
