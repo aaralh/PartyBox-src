@@ -135,6 +135,8 @@ export default class JoinRoom extends Vue {
 
 
 .panel_header {
+  font-size: 24px;
+  font-weight: bold;
   margin-top: 10px;
   margin-bottom: 25px;
 }

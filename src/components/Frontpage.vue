@@ -8,9 +8,6 @@
             <div class="party-tab active">
                 <div class="tab-content">Party</div>
             </div>
-            <div class="party-tab">
-                <div v-on:click="hostParty(1)" class="tab-content">Collab</div>
-            </div>
         </div>
         <a href="./index.html" class="button"></a>
         <div class="content">

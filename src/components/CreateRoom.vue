@@ -46,7 +46,6 @@ import { RoomSettings } from '@/components/Frontpage.vue';
     }
 
     public create() {
-      console.log(this.settings);
       this.$emit("create_room", this.settings);
     }
   }
@@ -78,7 +77,7 @@ import { RoomSettings } from '@/components/Frontpage.vue';
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    max-height: 240px;
+    max-height: 200px;
     min-height: 180px;
     max-width: 400px;
   }
