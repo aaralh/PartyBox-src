@@ -1,17 +1,17 @@
 <template>
-<div class="join_room_container" v-on:click="close">
-  <div class="join_room" v-on:click.stop>
-    <div class="panel_header">Join party!
-    </div>
+  <div class="join_room_container" v-on:click="close">
+    <div class="join_room" v-on:click.stop>
+      <div class="panel_header">Join party!
+      </div>
 
-    <div class="field_button_container">
-      <input @keydown.enter="connectRoom" v-model="roomId" placeholder="Input party code here!" class="roomId_field" type="text">
-      <button class="join_to_room" v-on:click="connectRoom">Join</button>
+      <div class="field_button_container">
+        <input @keydown.enter="connectRoom" v-model="roomId" placeholder="Input party code here!" class="roomId_field" type="text">
+        <button class="join_to_room" v-on:click="connectRoom">Join</button>
+      </div>
+      <div class="error_message">{{ errorMsg }}</div>
+      <button class="close_panel" v-on:click="close">Close</button>
     </div>
-    <div class="error_message">{{ errorMsg }}</div>
-    <button class="close_panel" v-on:click="close">Close</button>
   </div>
-</div>
 </template>
 
 <script lang="ts">
@@ -52,11 +52,15 @@ export default class JoinRoom extends Vue {
   position: absolute;
   top: 0;
   left: 0;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   background-color: black;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .join_room {
@@ -64,9 +68,6 @@ export default class JoinRoom extends Vue {
   height: 27vh;
   width: 80%;
   background-color:  #cccccc;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -78,7 +79,7 @@ export default class JoinRoom extends Vue {
 
 .roomId_field {
   height: 25px;
-  width: 200px;
+  width: 75%;
   border-radius: 5px 0px 0px 5px;
   padding-top: 5px;
   font-size: 19px;
@@ -110,6 +111,7 @@ export default class JoinRoom extends Vue {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  width: 90%;
 }
 
 .close_panel {

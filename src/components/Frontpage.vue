@@ -15,7 +15,7 @@
         <a href="./index.html" class="button"></a>
         <div class="content">
             <div class="host_container">
-                <button v-on:click="hostParty(0)" id="host" class="host_party">
+                <button v-on:click="createPartyPupShow = true" id="host" class="host_party">
                     <div class="image_overlay">
                         <div class="image_text" >Host party?</div>
                     </div>
@@ -27,8 +27,9 @@
                         <div class="image_text">Join party?</div>
                     </div>
                 </button>
-                <join-party v-on:connected="connected" v-on:close="joinPartyPupShow = false" v-if="joinPartyPupShow"></join-party>              
             </div>
+            <join-party v-on:connected="connected" v-on:close="joinPartyPupShow = false" v-if="joinPartyPupShow"></join-party>
+            <create-party v-on:close="createPartyPupShow = false" v-on:create_room="hostParty" v-if="createPartyPupShow"></create-party>            
         </div>
   </div>
 </template>
@@ -36,6 +37,7 @@
 <script lang="ts">
 
 import JoinParty from './JoinRoom.vue'
+import CreateParty from './CreateRoom.vue'
 import { saveRoomData } from '../IDBHandler'
 
 import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -54,9 +56,16 @@ declare module 'vue/types/options' {
   }
 }
 
+export type RoomSettings = {
+    id: number,
+    label: string,
+    value: boolean,
+}
+
 @Component({
     components: {
         JoinParty,
+        CreateParty,
     },
     sockets: {
         connect: function(): void{
@@ -73,6 +82,7 @@ declare module 'vue/types/options' {
 export default class Frontpage extends Vue {
 
     public joinPartyPupShow = false;
+    public createPartyPupShow = false;
     public host = false;
 
     public constructor() {
@@ -112,7 +122,7 @@ export default class Frontpage extends Vue {
     setContentSize() {
         let innerHeight = window.innerHeight;
         let contentEl = document.getElementsByClassName('content');
-        contentEl[0].setAttribute("style", `max-height: calc(${innerHeight} - 80px);`); 
+        contentEl[0].setAttribute("style", `max-height: calc(${innerHeight}px - 80px);`); 
     };
 
     connectRoom(roomId: any) {
@@ -127,7 +137,9 @@ export default class Frontpage extends Vue {
             this.joinPartyPupShow = true;
         }
     };
-    hostParty(type: number) {
+    hostParty(settings: RoomSettings[]) {
+        let item = settings.find(item => item.id === 0);
+        let type = item!.value ? 1 : 0;
         this.$socket.emit('create room', type);
     };
     connected(data: any) {
