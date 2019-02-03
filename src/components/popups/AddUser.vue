@@ -18,31 +18,31 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   computed: {
-    ...mapGetters({
-      connection: "connection"
-    })
-  }
+	...mapGetters({
+		connection: "connection",
+	})
+  , },
 })
 export default class AddUser extends Vue {
   public close() {
-    this.$emit("close");
+	this.$emit("close");
   }
 
   public CopyTextToClipboard() {
-    var textArea = document.createElement("textarea");
-    textArea.value = (this as any).connection.roomId;
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
+	let textArea = document.createElement("textarea");
+	textArea.value = (this as any).connection.roomId;
+	document.body.appendChild(textArea);
+	textArea.focus();
+	textArea.select();
 
-    try {
-      var successful = document.execCommand("copy");
-      var msg = successful ? "successful" : "unsuccessful";
-    } catch (err) {
-      console.error("Unable to copy", err);
-    }
+try {
+	let successful = document.execCommand("copy");
+	let msg = successful ? "successful" : "unsuccessful";
+	} catch (err) {
+		console.error("Unable to copy", err);
+	}
 
-    document.body.removeChild(textArea);
+document.body.removeChild(textArea);
   }
 }
 </script>

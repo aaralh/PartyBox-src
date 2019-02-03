@@ -64,10 +64,10 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 @Component({
   props: ["song"],
   computed: {
-    ...mapGetters({
-      connection: "connection"
-    })
-  }
+	...mapGetters({
+		connection: "connection",
+	}),
+  },
 })
 export default class SongListItem extends Vue {
   public checked = "";
@@ -75,29 +75,29 @@ export default class SongListItem extends Vue {
   public showMenu = false;
 
   public voteUp(value: string) {
-    let change = 0;
-    if (this.checked === "down") {
-      change = 2;
-    } else {
-      change = 1;
-    }
-    this.points = this.points + change;
-    this.checked = value;
-    this.$emit("voted", { id: this.$props.song.id, change: change });
+	let change = 0;
+	if (this.checked === "down") {
+		change = 2;
+	} else {
+		change = 1;
+	}
+	this.points = this.points + change;
+	this.checked = value;
+	this.$emit("voted", { id: this.$props.song.id, change });
   }
   public voteDown(value: string) {
-    let change = 0;
-    if (this.checked === "up") {
-      change = -2;
-    } else {
-      change = -1;
-    }
-    this.points = this.points + change;
-    this.checked = value;
-    this.$emit("voted", { id: this.$props.song.id, change: change });
+	let change = 0;
+	if (this.checked === "up") {
+		change = -2;
+	} else {
+		change = -1;
+	}
+	this.points = this.points + change;
+	this.checked = value;
+	this.$emit("voted", { id: this.$props.song.id, change });
   }
   public openMenu() {
-    this.showMenu = !this.showMenu;
+	this.showMenu = !this.showMenu;
   }
 }
 </script>

@@ -28,24 +28,24 @@ export default class JoinRoom extends Vue {
   public errorMsg = "";
 
   public close() {
-    this.$emit("close");
+	this.$emit("close");
   }
 
   public connectRoom() {
-    this.$socket.on("connected", this.connectionHandler);
-    this.$socket.emit("connectRoom", { roomId: this.roomId });
+	this.$socket.on("connected", this.connectionHandler);
+	this.$socket.emit("connectRoom", { roomId: this.roomId });
   }
 
   public connectionHandler(data: any) {
-    this.errorMsg = "";
-    this.$socket.removeAllListeners("room info");
-    if (data.status.code === 200) {
-      this.$emit("connected", { status: 200, data: data.room });
-      this.$emit("close");
-    } else {
-      this.errorMsg = data.status.msg;
-      this.$emit("connected", { status: 404 });
-    }
+	this.errorMsg = "";
+	this.$socket.removeAllListeners("room info");
+	if (data.status.code === 200) {
+		this.$emit("connected", { status: 200, data: data.room });
+		this.$emit("close");
+	} else {
+		this.errorMsg = data.status.msg;
+		this.$emit("connected", { status: 404 });
+	}
   }
 }
 </script>

@@ -60,7 +60,7 @@ export default class SongPlayer extends Vue {
   public durationString = "";
   public prevPosition = 0;
 
-  public setPosition(data) {
+  public setPosition(data: { position: number}) {
     this.position = +data.position;
     this.playPause();
   }

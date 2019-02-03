@@ -20,13 +20,13 @@
 </template>
 
 <script lang="ts">
-import Youtube from "./AddSongTabComponents/YoutubeComponent.vue";
+import Youtube from "../AddSongTabComponents/YoutubeComponent.vue";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
-    Youtube
-  }
+	Youtube
+  , },
 })
 export default class AddSongTabs extends Vue {
   public tabs = [{ id: 0, label: "Youtube", component: Youtube }];
@@ -34,15 +34,15 @@ export default class AddSongTabs extends Vue {
   public currentView = Youtube;
 
   public clicked(tab) {
-    this.selected = tab.id;
-    this.currentView = tab.component;
+	this.selected = tab.id;
+	this.currentView = tab.component;
   }
 
   public close() {
-    this.$emit("close");
+	this.$emit("close");
   }
   public add(song) {
-    this.$emit("add", song);
+	this.$emit("add", song);
   }
 }
 </script>

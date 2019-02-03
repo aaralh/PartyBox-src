@@ -43,24 +43,24 @@ import { RoomSettings } from "@/components/Frontpage.vue";
 export default class CreateRoom extends Vue {
   public supportedProviders = [{ id: 1, label: "YouTube" }];
   public settings: RoomSettings[] = [
-    {
-      id: 0,
-      label: "Collaboration mode",
-      value: false
-    } /*, {id: 1, label: "Song recommendations", value: true}*/
+	{
+		id: 0,
+		label: "Collaboration mode",
+		value: false
+	, }, /*, {id: 1, label: "Song recommendations", value: true}*/
   ];
   public selectedProviders = [];
 
   public constructor() {
-    super();
+	super();
   }
 
   public close() {
-    this.$emit("close");
+	this.$emit("close");
   }
 
   public create() {
-    this.$emit("create_room", this.settings);
+	this.$emit("create_room", this.settings);
   }
 }
 </script>

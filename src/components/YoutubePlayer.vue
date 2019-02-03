@@ -21,7 +21,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 
-@Component({
+@Component<YoutubePlayer>({
   props: {
     song: Object
   },
@@ -70,13 +70,13 @@ export default class YoutubePlayer extends Vue {
 
   mounted() {
     this.playVideo();
-    this.dragElement(document.getElementById("youtube_player_container"));
+    this.dragElement(document.getElementById("youtube_player_container")!);
   }
 
   public playVideo() {
     (this as any).player.playVideo();
-    (this as any).player.getDuration().then(duration => {
-      (this as any).player.getCurrentTime().then(current => {
+    (this as any).player.getDuration().then((duration: number) => {
+      (this as any).player.getCurrentTime().then((current: number) => {
         let nowPlaying = (this as any).nowPlaying;
         nowPlaying.data.duration = duration;
         nowPlaying.data.currentTime = current;
@@ -106,8 +106,8 @@ export default class YoutubePlayer extends Vue {
     if (!(this as any).isPlaying.status) {
       this.$store.commit("playing", { status: true, fromServer: false });
     }
-    (this as any).player.getDuration().then(duration => {
-      (this as any).player.getCurrentTime().then(current => {
+    (this as any).player.getDuration().then((duration: number) => {
+      (this as any).player.getCurrentTime().then((current: number) => {
         let nowPlaying = (this as any).nowPlaying;
         nowPlaying.data.duration = duration;
         nowPlaying.data.currentTime = current;
@@ -126,9 +126,12 @@ export default class YoutubePlayer extends Vue {
     }
   }
   public currentUpdate() {
+	  if (this.intervalKey !== null) {
+		  clearInterval(this.intervalKey);
+	  }
     let parentScope = this as any;
     this.intervalKey = setInterval(() => {
-      parentScope.player.getCurrentTime().then(current => {
+      parentScope.player.getCurrentTime().then((current: number) => {
         this.$store.commit("currentTime", current);
       });
     }, 1000);
@@ -138,7 +141,7 @@ export default class YoutubePlayer extends Vue {
       (this as any).player.seekTo(position);
       let parentScope = this as any;
       setTimeout(() => {
-        parentScope.player.getCurrentTime().then(current => {
+        parentScope.player.getCurrentTime().then((current: number) => {
           parentScope.onPlayerSeekTo(current);
         }, 100);
       });
@@ -146,9 +149,12 @@ export default class YoutubePlayer extends Vue {
   }
 
   public paused() {
-    if (!(this as any).isPlaying.fromServer) {
+
+	//TODO: Find solution for this issue when video buffering causes ws war.
+	/*
+	if (!(this as any).isPlaying.fromServer) {
       this.$store.commit("playing", { status: false, fromServer: false });
-    }
+    } */
     if (this.intervalKey !== null) {
       clearInterval(this.intervalKey);
     }
@@ -171,7 +177,7 @@ export default class YoutubePlayer extends Vue {
   }
   public checkSeek() {
     if ((this as any).connection.type !== 1) {
-      (this as any).player.getCurrentTime().then(currentTime => {
+      (this as any).player.getCurrentTime().then((currentTime: number) => {
         if (this.prevCurrentTime > 0) {
           let diff = (currentTime - this.prevCurrentTime) * 1000;
           if (diff > this.checkSeekMargin) {
@@ -211,7 +217,7 @@ export default class YoutubePlayer extends Vue {
       elmnt.onmousedown = dragMouseDown;
     }
 
-    function dragMouseDown(event: Event | MouseEvent) {
+    function dragMouseDown(event: MouseEvent) {
       event = event || window.event;
       event.preventDefault();
       pos3 = event.clientX;
@@ -220,7 +226,7 @@ export default class YoutubePlayer extends Vue {
       document.onmousemove = elementDrag;
     }
 
-    function elementDrag(event: Event | MouseEvent) {
+    function elementDrag(event: MouseEvent) {
       event = event || window.event;
       event.preventDefault();
       pos1 = pos3 - event.clientX;

@@ -25,23 +25,22 @@
           </div>
         </button>
       </div>
-      <join-party
+      <join-room
         v-on:connected="connected"
         v-on:close="joinPartyPupShow = false"
         v-if="joinPartyPupShow"
-      ></join-party>
-      <create-party
+      ></join-room>
+      <create-room
         v-on:close="createPartyPupShow = false"
         v-on:create_room="hostParty"
         v-if="createPartyPupShow"
-      ></create-party>
+      ></create-room>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import JoinParty from "./JoinRoom.vue";
-import CreateParty from "./CreateRoom.vue";
+import { JoinRoom, CreateRoom } from "./popups"
 import { saveRoomData } from "../IDBHandler";
 
 import { Component, Prop, Vue } from "vue-property-decorator";
@@ -68,8 +67,8 @@ export type RoomSettings = {
 
 @Component({
   components: {
-    JoinParty,
-    CreateParty
+    JoinRoom,
+    CreateRoom
   },
   sockets: {
     connect: function(): void {

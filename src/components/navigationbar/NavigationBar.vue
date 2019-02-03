@@ -7,7 +7,7 @@
           class="btn btn-lg btn-primary menu_button"
           v-on:mousedown="showMainMenu = !showMainMenu"
         >
-          <i class="fas fa-bars"></i>
+          <i class="menu_icon fas fa-bars"></i>
         </button>
         <div v-if="false" class="add_song_button">
           <i class="fas fa-plus add_icon"></i>
@@ -48,25 +48,25 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
-    MainMenu
+	MainMenu,
   },
   computed: {
-    ...mapGetters({
-      nowPlaying: "nowPlaying",
-      playing: "playing"
-    })
-  }
+	...mapGetters({
+		nowPlaying: "nowPlaying",
+		playing: "playing",
+	})
+  , },
 })
 export default class NavigationBar extends Vue {
   public showMainMenu = false;
   public showChat = true;
 
-  public close(object) {
-    this.showMainMenu = false;
-    this.$emit("event", object.case);
+  public close(event: { case: string }) {
+	this.showMainMenu = false;
+	this.$emit("event", event.case);
   }
   public closeChat() {
-    this.showChat = false;
+	this.showChat = false;
   }
 }
 </script>
@@ -87,10 +87,10 @@ export default class NavigationBar extends Vue {
   z-index: 2;
 }
 .navigation_bar_menu {
-  background-color: #969ffd91;
+  /* background-color: #969ffd91; */
   display: flex;
-  justify-content: start;
-  align-items: center;
+  justify-content: center;
+  align-items: start;
   max-width: 5.8vh;
   width: 20vw;
   flex-direction: row;
@@ -99,15 +99,13 @@ export default class NavigationBar extends Vue {
 .navigation_bar_chat {
   background-color: #5874d180;
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   max-width: 5.8vh;
 }
 
 .menu_button {
   font-size: 5.8vh;
-  float: left;
-  margin-left: -3px;
   cursor: pointer;
   background-color: #b6bffe00;
   outline: none;
@@ -241,6 +239,9 @@ export default class NavigationBar extends Vue {
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  .menu_icon{
+	margin-top: -5px;
+  }
   .info {
     width: 75vw;
   }

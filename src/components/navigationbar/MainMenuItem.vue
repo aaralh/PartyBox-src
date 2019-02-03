@@ -14,7 +14,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   props: {
-    item: {}
+    item: {},
   }
 })
 export default class MainMenuItem extends Vue {

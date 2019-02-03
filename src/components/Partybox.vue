@@ -56,13 +56,11 @@ export type Playing = {
   fromServer: boolean;
 };
 
-import SongList from "./SongList.vue";
-import NavigationBar from "./NavigationBar.vue";
-import AddSong from "./AddSong.vue";
+import { SongList } from "./songlist";
+import { NavigationBar } from "./navigationbar";
+import { AddUser, AddSong, JoinRoom } from "./popups";
 import YoutubePlayer from "./YoutubePlayer.vue";
 import SongPlayer from "./SongPlayer.vue";
-import AddUser from "./AddUser.vue";
-import JoinRoom from "./JoinRoom.vue";
 
 import { mapGetters } from "vuex";
 import { Component, Prop, Vue } from "vue-property-decorator";

@@ -14,19 +14,20 @@
 <script lang="ts">
 import AddSongTabs from "./AddSongTabs.vue";
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { Song } from "@/components/Partybox.vue"; "";
 
 @Component({
   components: {
-    AddSongTabs
-  }
+	AddSongTabs
+  , },
 })
 export default class AddSong extends Vue {
   public close() {
-    this.$emit("close");
+	this.$emit("close");
   }
 
-  public add(song) {
-    this.$emit("add", song);
+  public add(song: Song) {
+	this.$emit("add", song);
   }
 }
 </script>
