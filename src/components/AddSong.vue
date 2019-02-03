@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <div class="add_song" v-on:click="close">
-      <div class="add_song_container" v-on:click.stop>
-        <div class="add_song_container_header">
-          <div class="add_song_container_header_title">
-            Add Song
-          </div>
-        </div>
-        <add-song-tabs v-on:add="add" v-on:close="close"></add-song-tabs>
-      </div>
-    </div>
-  </div>
+	<div>
+		<div class="add_song" v-on:click="close">
+		<div class="add_song_container" v-on:click.stop>
+			<div class="add_song_container_header">
+			<div class="add_song_container_header_title">
+				Add Song
+			</div>
+			</div>
+			<add-song-tabs v-on:add="add" v-on:close="close"></add-song-tabs>
+		</div>
+		</div>
+	</div>
 </template>
 
 <script lang="ts">

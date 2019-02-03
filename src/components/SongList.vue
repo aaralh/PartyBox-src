@@ -1,9 +1,9 @@
 <template>
-<div class="song_list">
-    <transition-group class="song_list_list" name="song_list_transition">
-        <song-list-item :song="song" v-on:voted="votingEvent" v-for="song in sortedList" :key="song.id"></song-list-item>
-    </transition-group>
-</div>
+	<div class="song_list">
+		<transition-group class="song_list_list" name="song_list_transition">
+			<song-list-item :song="song" v-on:voted="votingEvent" v-for="song in sortedList" :key="song.id"></song-list-item>
+		</transition-group>
+	</div>
 </template>
 
 <script lang="ts">

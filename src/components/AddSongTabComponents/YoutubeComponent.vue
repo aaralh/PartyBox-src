@@ -1,20 +1,20 @@
 <template>
-  <div class="youtube">
-    <div class="video_inputs">
-      <div class="video_url video_input">
-        <div class="video_input_title">Url*:</div>
-        <input class="video_url_input" v-model="url" placeholder="Url of the video">
-      </div>
-      <div class="error_message">{{ errorMsg }}</div>
-      <div class="required_fields">*required field</div>
-    </div>
-      <div class="bottom_buttons" role="group" id="toolBtns">
-        <button role="button" class="btn btn-lg btn-primary bottom_buttons_cancel" v-on:click="close"> Cancel </button>
-        <div class="add_button_container">
-          <button role="button" class="btn btn-lg btn-primary bottom_buttons_add" v-on:click="add"> <div v-if="!showLoader">Add</div> <div v-if="showLoader" class="lds-ring"><div></div><div></div><div></div><div></div></div> </button>       
-        </div>
-      </div>
-  </div>
+	<div class="youtube">
+		<div class="video_inputs">
+		<div class="video_url video_input">
+			<div class="video_input_title">Url*:</div>
+			<input class="video_url_input" v-model="url" placeholder="Url of the video">
+		</div>
+		<div class="error_message">{{ errorMsg }}</div>
+		<div class="required_fields">*required field</div>
+		</div>
+		<div class="bottom_buttons" role="group" id="toolBtns">
+			<button role="button" class="btn btn-lg btn-primary bottom_buttons_cancel" v-on:click="close"> Cancel </button>
+			<div class="add_button_container">
+			<button role="button" class="btn btn-lg btn-primary bottom_buttons_add" v-on:click="add"> <div v-if="!showLoader">Add</div> <div v-if="showLoader" class="lds-ring"><div></div><div></div><div></div><div></div></div> </button>       
+			</div>
+		</div>
+	</div>
 </template>
 
 <script lang="ts">

@@ -1,32 +1,49 @@
 <template>
-  <div class="song_player">
-      <div class="time_line">
-        <div class="current_position">{{ positionTime() }}</div>
-        <input id="tl1" value="currentTime" v-model="position" type="range" class="range" step="1" min="0" :max="songDuration" @change="change" :disabled="connection.type === 1"/>
-        <div class="duration">{{ duration() }}</div>
-      </div>
-      <div class="controls">
-        <div class="controls_previous control" :class="{ 'disabled': connection.type === 1 }">
-          <button role="button" class="media_button" v-on:click="previous"><i class="fas fa-step-backward"></i></button>
-        </div>
-        <div class="controls_pause control">
-          <button role="button" class="media_button pause" v-on:click="playPause"><i v-if="!playing.status" class="fas fa-play"></i><i v-if="playing.status" class="fas fa-pause"></i></button>
-        </div>
-        <div class="controls_next control" :class="{ 'disabled': connection.type === 1 }">
-          <button role="button" class="media_button" v-on:click="next"><i class="fas fa-step-forward"></i></button>
-        </div>
-      </div>
-  </div>
+	<div class="song_player">
+		<div class="time_line">
+		<div class="current_position">{{ positionTime() }}</div>
+		<input
+			id="tl1"
+			value="currentTime"
+			v-model="position"
+			type="range"
+			class="range"
+			step="1"
+			min="0"
+			:max="songDuration"
+			@change="change"
+			:disabled="connection.type === 1"
+		>
+		<div class="duration">{{ duration() }}</div>
+		</div>
+		<div class="controls">
+		<div class="controls_previous control" :class="{ 'disabled': connection.type === 1 }">
+			<button role="button" class="media_button" v-on:click="previous">
+			<i class="fas fa-step-backward"></i>
+			</button>
+		</div>
+		<div class="controls_pause control">
+			<button role="button" class="media_button pause" v-on:click="playPause">
+			<i v-if="!playing.status" class="fas fa-play"></i>
+			<i v-if="playing.status" class="fas fa-pause"></i>
+			</button>
+		</div>
+		<div class="controls_next control" :class="{ 'disabled': connection.type === 1 }">
+			<button role="button" class="media_button" v-on:click="next">
+			<i class="fas fa-step-forward"></i>
+			</button>
+		</div>
+		</div>
+	</div>
 </template>
 
 <script lang="ts">
-
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { mapGetters } from 'vuex'
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 
 @Component({
   computed: {
-    ...mapGetters(['nowPlaying', 'currentTime', 'playing','connection'])
+    ...mapGetters(["nowPlaying", "currentTime", "playing", "connection"])
   },
   watch: {
     songDuration: function() {
@@ -46,51 +63,51 @@ export default class SongPlayer extends Vue {
   public setPosition(data) {
     this.position = +data.position;
     this.playPause();
-  };
+  }
 
   public getPosition() {
     return this.position;
-  };
+  }
 
   public change() {
-    if((this as any).connection.type !== 1) {
+    if ((this as any).connection.type !== 1) {
       this.playPause();
       this.$emit("seekTo", this.position);
     }
-  };
-  
+  }
+
   public playPause() {
     if ((this as any).playing.status) {
-      this.$store.commit('playing', {status: false, fromServer: false});
+      this.$store.commit("playing", { status: false, fromServer: false });
     } else {
-      this.$store.commit('playing', {status: true, fromServer: false});
+      this.$store.commit("playing", { status: true, fromServer: false });
     }
-  };
+  }
 
   public stop() {
     this.$emit("ended");
-  };
+  }
 
   public ended() {
-    this.$store.commit('playing', {status: false, fromServer: false});
-    this.$store.commit('currentTime', 0);
-  };
+    this.$store.commit("playing", { status: false, fromServer: false });
+    this.$store.commit("currentTime", 0);
+  }
 
   public previous() {
-    if((this as any).connection.type !== 1) {
+    if ((this as any).connection.type !== 1) {
       this.position = 0;
       this.$emit("seekTo", this.position);
     }
-  };
+  }
 
   public next() {
-    if((this as any).connection.type !== 1) {
+    if ((this as any).connection.type !== 1) {
       this.position = (this as any).nowPlaying.data.duration;
-      this.$store.commit('playing', {status: false, fromServer: false});
+      this.$store.commit("playing", { status: false, fromServer: false });
       this.$emit("seekTo", this.position);
     }
   }
-  
+
   public duration() {
     let time = (this as any).nowPlaying.data.duration;
     this.songDuration = time;
@@ -113,7 +130,7 @@ export default class SongPlayer extends Vue {
     }
     let duration = `${minutesString}:${secondsString}`;
     return duration;
-  };
+  }
 
   public positionTime() {
     let time = (this as any).currentTime;
@@ -143,8 +160,8 @@ export default class SongPlayer extends Vue {
       this.ended();
     }
     return duration;
-  };
-};
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -266,7 +283,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  background: #f0f0f0;;
+  background: #f0f0f0;
   border: 1px solid #9e9e9f;
   outline: none;
   height: 15px;

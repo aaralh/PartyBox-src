@@ -1,22 +1,22 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
+	<div id="app">
+		<router-view></router-view>
+	</div>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
-  export default class App extends Vue{
-   mounted() : void {
-     this.$router.replace({ name: "frontpage" });
-   }
+import Vue from "vue";
+export default class App extends Vue {
+  mounted(): void {
+    this.$router.replace({ name: "frontpage" });
   }
+}
 </script>
 
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

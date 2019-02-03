@@ -1,22 +1,29 @@
 <template>
-  <div>
-    <div id="youtube_player_container" class="player_container" v-on:click.stop>
-      <youtube class="youtube_player" :video-id="videoId" ref="youtube" @playing="playing" :player-vars="playerVars" @paused="paused" @ended="ended"></youtube>
-      <div class="close_button" v-on:click.stop="close">
-        <i class="fas fa-times"></i>
-      </div>
-    </div>
-  </div>
+	<div>
+		<div id="youtube_player_container" class="player_container" v-on:click.stop>
+		<youtube
+			class="youtube_player"
+			:video-id="videoId"
+			ref="youtube"
+			@playing="playing"
+			:player-vars="playerVars"
+			@paused="paused"
+			@ended="ended"
+		></youtube>
+		<div class="close_button" v-on:click.stop="close">
+			<i class="fas fa-times"></i>
+		</div>
+		</div>
+	</div>
 </template>
 
 <script lang="ts">
-
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { mapGetters } from 'vuex'
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 
 @Component({
   props: {
-    song: Object,
+    song: Object
   },
   data() {
     return {
@@ -25,29 +32,29 @@ import { mapGetters } from 'vuex'
         playsinline: 1,
         controls: 0,
         autoplay: 0
-      },
-    }
+      }
+    };
   },
   computed: {
     ...mapGetters({
-      nowPlaying: 'nowPlaying',
-      isPlaying: 'playing',
-      connection: 'connection',
+      nowPlaying: "nowPlaying",
+      isPlaying: "playing",
+      connection: "connection"
     }),
     player() {
       return this.$refs.youtube.player;
-    },
+    }
   },
   watch: {
     nowPlaying: function() {
-      if((this as any).nowPlaying.data.source === 0) {
+      if ((this as any).nowPlaying.data.source === 0) {
         (this as any).videoId = (this as any).nowPlaying.data.url;
         this.$refs.youtube.updatePlayer((this as any).nowPlaying.data.url);
         (this as any).playVideo();
       }
     },
     isPlaying: function() {
-      if((this as any).isPlaying.status) {
+      if ((this as any).isPlaying.status) {
         (this as any).playVideo();
       } else {
         (this as any).pauseVideo();
@@ -64,7 +71,7 @@ export default class YoutubePlayer extends Vue {
   mounted() {
     this.playVideo();
     this.dragElement(document.getElementById("youtube_player_container"));
-  };
+  }
 
   public playVideo() {
     (this as any).player.playVideo();
@@ -74,30 +81,30 @@ export default class YoutubePlayer extends Vue {
         nowPlaying.data.duration = duration;
         nowPlaying.data.currentTime = current;
         nowPlaying.data.source = 0;
-        this.$store.commit('nowPlaying', nowPlaying);
-        if(!(this as any).isPlaying.status) {
-          this.$store.commit('playing', {status: true, fromServer: false});
+        this.$store.commit("nowPlaying", nowPlaying);
+        if (!(this as any).isPlaying.status) {
+          this.$store.commit("playing", { status: true, fromServer: false });
         }
       });
     });
     this.checkSeek();
-  };
+  }
 
   public stopVideo() {
     (this as any).player.stopVideo();
     if (this.intervalKey !== null) {
       clearInterval(this.intervalKey);
     }
-  };
+  }
   public pauseVideo() {
     (this as any).player.pauseVideo();
     if (this.intervalKey !== null) {
       clearInterval(this.intervalKey);
     }
-  };
+  }
   public playing() {
-    if(!(this as any).isPlaying.status) {
-      this.$store.commit('playing', {status: true, fromServer: false});
+    if (!(this as any).isPlaying.status) {
+      this.$store.commit("playing", { status: true, fromServer: false });
     }
     (this as any).player.getDuration().then(duration => {
       (this as any).player.getCurrentTime().then(current => {
@@ -105,65 +112,65 @@ export default class YoutubePlayer extends Vue {
         nowPlaying.data.duration = duration;
         nowPlaying.data.currentTime = current;
         nowPlaying.data.source = 0;
-        this.$store.commit('nowPlaying', nowPlaying);
-        if(!(this as any).isPlaying.fromServer) {
-          if(!(this as any).isPlaying.status) {
-            this.$store.commit('playing', {status: true, fromServer: false});
+        this.$store.commit("nowPlaying", nowPlaying);
+        if (!(this as any).isPlaying.fromServer) {
+          if (!(this as any).isPlaying.status) {
+            this.$store.commit("playing", { status: true, fromServer: false });
           }
         }
       });
     });
     this.checkSeek();
-    if((this as any).isPlaying.status) {
+    if ((this as any).isPlaying.status) {
       this.currentUpdate();
     }
-  };
+  }
   public currentUpdate() {
-    let parentScope = (this as any);
+    let parentScope = this as any;
     this.intervalKey = setInterval(() => {
       parentScope.player.getCurrentTime().then(current => {
-          this.$store.commit('currentTime', current);
-        });
-    }, 1000)
-  };
+        this.$store.commit("currentTime", current);
+      });
+    }, 1000);
+  }
   public seekTo(position: number) {
-    if((this as any).connection.type !== 1) {
+    if ((this as any).connection.type !== 1) {
       (this as any).player.seekTo(position);
-      let parentScope = (this as any);
+      let parentScope = this as any;
       setTimeout(() => {
         parentScope.player.getCurrentTime().then(current => {
           parentScope.onPlayerSeekTo(current);
         }, 100);
-      })
+      });
     }
-  };
+  }
 
   public paused() {
-    if(!(this as any).isPlaying.fromServer) {
-      this.$store.commit('playing', {status: false, fromServer: false});
+    if (!(this as any).isPlaying.fromServer) {
+      this.$store.commit("playing", { status: false, fromServer: false });
     }
     if (this.intervalKey !== null) {
       clearInterval(this.intervalKey);
     }
-  };
-    
+  }
+
   public ended() {
-    this.$store.commit('playing', {status: false, fromServer: false});
+    this.$store.commit("playing", { status: false, fromServer: false });
     if (this.intervalKey !== null) {
       clearInterval(this.intervalKey);
     }
     this.$emit("ended");
-  };
+  }
   public close() {
     this.$emit("close");
     if (this.intervalKey !== null) {
       clearInterval(this.intervalKey);
     }
     this.$emit("ended");
-    this.$store.commit('playing', {status: false, fromServer: false});
-  };
+    this.$store.commit("playing", { status: false, fromServer: false });
+  }
   public checkSeek() {
-    if((this as any).connection.type !== 1) {
+    if ((this as any).connection.type !== 1) {
       (this as any).player.getCurrentTime().then(currentTime => {
         if (this.prevCurrentTime > 0) {
           let diff = (currentTime - this.prevCurrentTime) * 1000;
@@ -178,20 +185,26 @@ export default class YoutubePlayer extends Vue {
         }, this.checkSeekPeriod);
       });
     }
-  };
+  }
 
   public onPlayerSeekTo(current: number) {
-    if((this as any).connection.type !== 1) {
-      this.$emit("seekTo", {position: current, playing: (this as any).isPlaying.status});
+    if ((this as any).connection.type !== 1) {
+      this.$emit("seekTo", {
+        position: current,
+        playing: (this as any).isPlaying.status
+      });
     }
-  };
+  }
 
   public reload() {
     this.$forceUpdate();
-  };
+  }
 
   public dragElement(elmnt: HTMLElement) {
-    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    let pos1 = 0,
+      pos2 = 0,
+      pos3 = 0,
+      pos4 = 0;
     if (document.getElementById(elmnt.id + "header")) {
       document.getElementById(elmnt.id + "header")!.onmousedown = dragMouseDown;
     } else {
@@ -214,8 +227,8 @@ export default class YoutubePlayer extends Vue {
       pos2 = pos4 - event.clientY;
       pos3 = event.clientX;
       pos4 = event.clientY;
-      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+      elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
     }
 
     function closeDragElement() {
@@ -223,9 +236,8 @@ export default class YoutubePlayer extends Vue {
       document.onmouseup = null;
       document.onmousemove = null;
     }
+  }
 }
-  
-};
 </script>
 
 <style>
@@ -273,13 +285,9 @@ iframe {
   }
 }
 
-    @media only screen 
-    and (min-device-width: 320px) 
-    and (max-device-width: 480px)
-    and (-webkit-min-device-pixel-ratio: 2)
-    and (orientation: portrait) {
-      .youtube_player {
-        pointer-events: initial;
-      }
-    }
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  .youtube_player {
+    pointer-events: initial;
+  }
+}
 </style>

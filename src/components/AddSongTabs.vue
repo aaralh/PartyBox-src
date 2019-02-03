@@ -1,17 +1,17 @@
 <template>
-  <div>
-    <ul class="btn-group add_song_tabs" v-on:click.stop>
-      <li role="group" id="toolBtns" v-for="tab in tabs" :key="tab.id">
-        <button role="button" class="btn btn-lg btn-primary add_song_tabs_tab" v-on:click="clicked(tab)" :class="{'btn-active': tab.id === selected}"> {{ tab.label }} </button>
-      </li>
-    </ul>
-    <div class="container">
-      <!-- render the currently active component/page here -->
-        <keep-alive>
-          <component v-on:add="add" v-on:close="close" :is="currentView"></component>
-        </keep-alive>
-    </div>
-  </div>
+	<div>
+		<ul class="btn-group add_song_tabs" v-on:click.stop>
+		<li role="group" id="toolBtns" v-for="tab in tabs" :key="tab.id">
+			<button role="button" class="btn btn-lg btn-primary add_song_tabs_tab" v-on:click="clicked(tab)" :class="{'btn-active': tab.id === selected}"> {{ tab.label }} </button>
+		</li>
+		</ul>
+		<div class="container">
+		<!-- render the currently active component/page here -->
+			<keep-alive>
+			<component v-on:add="add" v-on:close="close" :is="currentView"></component>
+			</keep-alive>
+		</div>
+	</div>
 </template>
 
 <script lang="ts">

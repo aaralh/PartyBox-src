@@ -1,21 +1,26 @@
 <template>
-  <div class="join_room_container" v-on:click="close">
-    <div class="join_room" v-on:click.stop>
-      <div class="panel_header">Join party!
-      </div>
+	<div class="join_room_container" v-on:click="close">
+		<div class="join_room" v-on:click.stop>
+		<div class="panel_header">Join party!</div>
 
-      <div class="field_button_container">
-        <input @keydown.enter="connectRoom" v-model="roomId" placeholder="Input party code here!" class="roomId_field" type="text">
-        <button class="join_to_room" v-on:click="connectRoom">Join</button>
-      </div>
-      <div class="error_message">{{ errorMsg }}</div>
-      <button class="close_panel" v-on:click="close">Close</button>
-    </div>
-  </div>
+		<div class="field_button_container">
+			<input
+			@keydown.enter="connectRoom"
+			v-model="roomId"
+			placeholder="Input party code here!"
+			class="roomId_field"
+			type="text"
+			>
+			<button class="join_to_room" v-on:click="connectRoom">Join</button>
+		</div>
+		<div class="error_message">{{ errorMsg }}</div>
+		<button class="close_panel" v-on:click="close">Close</button>
+		</div>
+	</div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class JoinRoom extends Vue {
@@ -24,26 +29,25 @@ export default class JoinRoom extends Vue {
 
   public close() {
     this.$emit("close");
-  };
+  }
 
   public connectRoom() {
     this.$socket.on("connected", this.connectionHandler);
-    this.$socket.emit("connectRoom", {roomId: this.roomId});
-  };
+    this.$socket.emit("connectRoom", { roomId: this.roomId });
+  }
 
   public connectionHandler(data: any) {
     this.errorMsg = "";
     this.$socket.removeAllListeners("room info");
-    if(data.status.code === 200) {
-      this.$emit("connected", {status: 200, data: data.room})
+    if (data.status.code === 200) {
+      this.$emit("connected", { status: 200, data: data.room });
       this.$emit("close");
     } else {
       this.errorMsg = data.status.msg;
-      this.$emit("connected", {status: 404})
+      this.$emit("connected", { status: 404 });
     }
-  };
-  
-};
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -67,7 +71,7 @@ export default class JoinRoom extends Vue {
   position: absolute;
   height: 27vh;
   width: 80%;
-  background-color:  #cccccc;
+  background-color: #cccccc;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -102,7 +106,7 @@ export default class JoinRoom extends Vue {
 }
 
 .join_to_room:active {
-  background-color:  #666666;
+  background-color: #666666;
   color: whitesmoke;
 }
 
@@ -132,7 +136,6 @@ export default class JoinRoom extends Vue {
 .close_panel:active {
   background-color: #00ff00;
 }
-
 
 .panel_header {
   font-size: 24px;

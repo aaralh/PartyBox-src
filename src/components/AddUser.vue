@@ -1,53 +1,50 @@
 <template>
-<div class="add_user_container" v-on:click="close">
-  <div class="add_user" v-on:click.stop>
-    <div class="panel_header">Invite friends to party by sharing room code!
-    </div>
+	<div class="add_user_container" v-on:click="close">
+		<div class="add_user" v-on:click.stop>
+		<div class="panel_header">Invite friends to party by sharing room code!</div>
 
-    <div class="field_button_container">
-      <input :value="connection.roomId" class="roomId_field" type="text" disabled="disabled">
-      <button class="copy_to_clipboard" v-on:click="CopyTextToClipboard">Copy</button>
-    </div>
-    <button class="close_panel" v-on:click="close">Close</button>
-  </div>
-</div>
+		<div class="field_button_container">
+			<input :value="connection.roomId" class="roomId_field" type="text" disabled="disabled">
+			<button class="copy_to_clipboard" v-on:click="CopyTextToClipboard">Copy</button>
+		</div>
+		<button class="close_panel" v-on:click="close">Close</button>
+		</div>
+	</div>
 </template>
 
 <script lang="ts">
-
-import { mapGetters } from 'vuex'
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { mapGetters } from "vuex";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
-    computed: {
+  computed: {
     ...mapGetters({
-      connection: 'connection',
+      connection: "connection"
     })
-  },
+  }
 })
 export default class AddUser extends Vue {
-    public close() {
-      this.$emit("close");
-    };
+  public close() {
+    this.$emit("close");
+  }
 
-    public CopyTextToClipboard() {
-      var textArea = document.createElement("textarea");
-      textArea.value = (this as any).connection.roomId;
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
+  public CopyTextToClipboard() {
+    var textArea = document.createElement("textarea");
+    textArea.value = (this as any).connection.roomId;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
 
-      try {
-        var successful = document.execCommand("copy");
-        var msg = successful ? "successful" : "unsuccessful";
-      } catch (err) {
-        console.error("Unable to copy", err);
-      }
-
-      document.body.removeChild(textArea);
+    try {
+      var successful = document.execCommand("copy");
+      var msg = successful ? "successful" : "unsuccessful";
+    } catch (err) {
+      console.error("Unable to copy", err);
     }
 
-};
+    document.body.removeChild(textArea);
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -66,7 +63,7 @@ export default class AddUser extends Vue {
   position: absolute;
   height: 27vh;
   width: 80%;
-  background-color:  #cccccc;
+  background-color: #cccccc;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -103,7 +100,7 @@ export default class AddUser extends Vue {
 }
 
 .copy_to_clipboard:active {
-  background-color:  #666666;
+  background-color: #666666;
   color: whitesmoke;
 }
 
@@ -132,7 +129,6 @@ export default class AddUser extends Vue {
 .close_panel:active {
   background-color: #00ff00;
 }
-
 
 .panel_header {
   margin-top: 10px;
