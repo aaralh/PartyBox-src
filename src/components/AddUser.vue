@@ -1,15 +1,15 @@
 <template>
-	<div class="add_user_container" v-on:click="close">
-		<div class="add_user" v-on:click.stop>
-		<div class="panel_header">Invite friends to party by sharing room code!</div>
+  <div class="add_user_container" v-on:click="close">
+    <div class="add_user" v-on:click.stop>
+      <div class="panel_header">Invite friends to party by sharing room code!</div>
 
-		<div class="field_button_container">
-			<input :value="connection.roomId" class="roomId_field" type="text" disabled="disabled">
-			<button class="copy_to_clipboard" v-on:click="CopyTextToClipboard">Copy</button>
-		</div>
-		<button class="close_panel" v-on:click="close">Close</button>
-		</div>
-	</div>
+      <div class="field_button_container">
+        <input :value="connection.roomId" class="roomId_field" type="text" disabled="disabled">
+        <button class="copy_to_clipboard" v-on:click="CopyTextToClipboard">Copy</button>
+      </div>
+      <button class="close_panel" v-on:click="close">Close</button>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">

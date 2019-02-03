@@ -1,40 +1,40 @@
 <template>
-	<div class="song_player">
-		<div class="time_line">
-		<div class="current_position">{{ positionTime() }}</div>
-		<input
-			id="tl1"
-			value="currentTime"
-			v-model="position"
-			type="range"
-			class="range"
-			step="1"
-			min="0"
-			:max="songDuration"
-			@change="change"
-			:disabled="connection.type === 1"
-		>
-		<div class="duration">{{ duration() }}</div>
-		</div>
-		<div class="controls">
-		<div class="controls_previous control" :class="{ 'disabled': connection.type === 1 }">
-			<button role="button" class="media_button" v-on:click="previous">
-			<i class="fas fa-step-backward"></i>
-			</button>
-		</div>
-		<div class="controls_pause control">
-			<button role="button" class="media_button pause" v-on:click="playPause">
-			<i v-if="!playing.status" class="fas fa-play"></i>
-			<i v-if="playing.status" class="fas fa-pause"></i>
-			</button>
-		</div>
-		<div class="controls_next control" :class="{ 'disabled': connection.type === 1 }">
-			<button role="button" class="media_button" v-on:click="next">
-			<i class="fas fa-step-forward"></i>
-			</button>
-		</div>
-		</div>
-	</div>
+  <div class="song_player">
+    <div class="time_line">
+      <div class="current_position">{{ positionTime() }}</div>
+      <input
+        id="tl1"
+        value="currentTime"
+        v-model="position"
+        type="range"
+        class="range"
+        step="1"
+        min="0"
+        :max="songDuration"
+        @change="change"
+        :disabled="connection.type === 1"
+      >
+      <div class="duration">{{ duration() }}</div>
+    </div>
+    <div class="controls">
+      <div class="controls_previous control" :class="{ 'disabled': connection.type === 1 }">
+        <button role="button" class="media_button" v-on:click="previous">
+          <i class="fas fa-step-backward"></i>
+        </button>
+      </div>
+      <div class="controls_pause control">
+        <button role="button" class="media_button pause" v-on:click="playPause">
+          <i v-if="!playing.status" class="fas fa-play"></i>
+          <i v-if="playing.status" class="fas fa-pause"></i>
+        </button>
+      </div>
+      <div class="controls_next control" :class="{ 'disabled': connection.type === 1 }">
+        <button role="button" class="media_button" v-on:click="next">
+          <i class="fas fa-step-forward"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">

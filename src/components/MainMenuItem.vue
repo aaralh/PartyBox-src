@@ -1,12 +1,12 @@
 <template>
-	<div>
-		<div class="menu-item" v-on:click="clicked(item)">
-		<div class="menu-item-label">{{ item.label }}</div>
-		<div class="menu-item-icon">
-			<i :class="item.icon"></i>
-		</div>
-		</div>
-	</div>
+  <div>
+    <div class="menu-item" v-on:click="clicked(item)">
+      <div class="menu-item-label">{{ item.label }}</div>
+      <div class="menu-item-icon">
+        <i :class="item.icon"></i>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">

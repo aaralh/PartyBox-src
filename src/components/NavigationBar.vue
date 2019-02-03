@@ -1,50 +1,61 @@
 <template>
-    <div>
-        <div class="navigation_bar">
-            <div class="navigation_bar_menu">
-                <button role="button" class="btn btn-lg btn-primary menu_button" v-on:mousedown="showMainMenu = !showMainMenu"><i class="fas fa-bars"></i></button>
-                <div v-if="false" class="add_song_button">
-                  <i class="fas fa-plus add_icon"></i>
-                  <div class="add_song_label">Add Song</div>
-                </div>
-            </div>
-            <div class="now_playing" v-if="playing.status">
-              <div class="song_info">
-                <div class="label">Now playing:</div>
-                <div class="info">
-                <marquee behavior="scroll" direction="left">
-                  <div class="title">{{ nowPlaying.name }}</div>
-                  <div class="artist">{{ nowPlaying.artist }}</div>
-                </marquee>
-              </div>
-            </div>
-          </div>
-          <div v-if="false" class="navigation_bar_chat">
-                <button role="button" class="btn btn-lg btn-primary chat_button" v-on:mousedown="showChat = !showChat"><i class="far fa-comments"></i></button>
-            </div>
+  <div>
+    <div class="navigation_bar">
+      <div class="navigation_bar_menu">
+        <button
+          role="button"
+          class="btn btn-lg btn-primary menu_button"
+          v-on:mousedown="showMainMenu = !showMainMenu"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+        <div v-if="false" class="add_song_button">
+          <i class="fas fa-plus add_icon"></i>
+          <div class="add_song_label">Add Song</div>
         </div>
-        <transition name="main_menu_transition">
-            <main-menu v-on:close="close" v-if="showMainMenu" :key="'main-menu'"></main-menu>
-        </transition>
+      </div>
+      <div class="now_playing" v-if="playing.status">
+        <div class="song_info">
+          <div class="label">Now playing:</div>
+          <div class="info">
+            <marquee behavior="scroll" direction="left">
+              <div class="title">{{ nowPlaying.name }}</div>
+              <div class="artist">{{ nowPlaying.artist }}</div>
+            </marquee>
+          </div>
+        </div>
+      </div>
+      <div v-if="false" class="navigation_bar_chat">
+        <button
+          role="button"
+          class="btn btn-lg btn-primary chat_button"
+          v-on:mousedown="showChat = !showChat"
+        >
+          <i class="far fa-comments"></i>
+        </button>
+      </div>
     </div>
+    <transition name="main_menu_transition">
+      <main-menu v-on:close="close" v-if="showMainMenu" :key="'main-menu'"></main-menu>
+    </transition>
+  </div>
 </template>
 
 <script lang="ts">
-
 import MainMenu from "./MainMenu.vue";
-import { mapGetters } from 'vuex';
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { mapGetters } from "vuex";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
-    MainMenu,
+    MainMenu
   },
   computed: {
     ...mapGetters({
-      nowPlaying: 'nowPlaying',
-      playing: 'playing',
+      nowPlaying: "nowPlaying",
+      playing: "playing"
     })
-  },
+  }
 })
 export default class NavigationBar extends Vue {
   public showMainMenu = false;
@@ -53,16 +64,15 @@ export default class NavigationBar extends Vue {
   public close(object) {
     this.showMainMenu = false;
     this.$emit("event", object.case);
-  };
+  }
   public closeChat() {
     this.showChat = false;
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .navigation_bar {
   position: fixed;
   display: flex;
@@ -104,7 +114,6 @@ export default class NavigationBar extends Vue {
   box-shadow: none;
   border: none;
   padding: 0;
-
 }
 
 .chat_button {
@@ -117,7 +126,6 @@ export default class NavigationBar extends Vue {
   box-shadow: none;
   border: none;
   padding: 0;
-
 }
 
 #app {
@@ -222,28 +230,19 @@ export default class NavigationBar extends Vue {
   border-radius: 15px;
 }
 
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: landscape) {
-    .menu_button {
-      font-size: 42px;
-    }
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+  .menu_button {
+    font-size: 42px;
+  }
 
-    .info {
-        width: 75vw;
-    }
+  .info {
+    width: 75vw;
+  }
 }
 
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) {
-    .info {
-      width: 75vw;
-    }
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  .info {
+    width: 75vw;
+  }
 }
-
 </style>

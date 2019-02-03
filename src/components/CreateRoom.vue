@@ -1,38 +1,38 @@
 <template>
-	<div class="create_room_container" v-on:click="close">
-		<div class="create_room" v-on:click.stop>
-			<div class="create_room__label">Create Room</div>
-			<div v-if="false" class="create_room__content_providers">
-				<div class="select_item" v-for="item in supportedProviders" :key="item.id">
-				<input type="checkbox" :id="item.id" :value="item" v-model="selectedProviders">
-				<label :for="item.id">{{ item.label }}</label>
-				</div>
-			</div>
-			<div class="create_room_settings">
-				<div class="settings_item" v-for="item in settings" :key="item.id">
-				<div class="settings_label">{{ item.label }}</div>
-				<label class="switch">
-					<input type="checkbox" :id="item.id" :value="item.value" v-model="item.value">
-					<span class="slider round"></span>
-				</label>
-				</div>
-			</div>
-			<div class="bottom_buttons" role="group" id="toolBtns">
-				<button
-				role="button"
-				class="btn btn-lg btn-primary bottom_buttons_cancel"
-				v-on:click="close"
-				>Cancel</button>
-				<div class="create_button_container">
-				<button
-					role="button"
-					class="btn btn-lg btn-primary bottom_buttons_create"
-					v-on:click="create"
-				>Create</button>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="create_room_container" v-on:click="close">
+    <div class="create_room" v-on:click.stop>
+      <div class="create_room__label">Create Room</div>
+      <div v-if="false" class="create_room__content_providers">
+        <div class="select_item" v-for="item in supportedProviders" :key="item.id">
+          <input type="checkbox" :id="item.id" :value="item" v-model="selectedProviders">
+          <label :for="item.id">{{ item.label }}</label>
+        </div>
+      </div>
+      <div class="create_room_settings">
+        <div class="settings_item" v-for="item in settings" :key="item.id">
+          <div class="settings_label">{{ item.label }}</div>
+          <label class="switch">
+            <input type="checkbox" :id="item.id" :value="item.value" v-model="item.value">
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="bottom_buttons" role="group" id="toolBtns">
+        <button
+          role="button"
+          class="btn btn-lg btn-primary bottom_buttons_cancel"
+          v-on:click="close"
+        >Cancel</button>
+        <div class="create_button_container">
+          <button
+            role="button"
+            class="btn btn-lg btn-primary bottom_buttons_create"
+            v-on:click="create"
+          >Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">

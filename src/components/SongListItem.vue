@@ -1,59 +1,59 @@
 <template>
-	<div class="container">
-		<div class="song" v-bind:class="{'hover': showMenu}">
-		<div class="song__left_side">
-			<div
-			class="song_image"
-			v-bind:style="{ backgroundImage: 'url(' + song.data.thumbnailUrl + ')' }"
-			></div>
-			<div class="song_info">
-				<div class="label">{{ song.name }}</div>
-				<div class="artist">{{ song.artist }}</div>
-				<div v-if="song.data.suggested" class="added_by">[Suggested by PartyBox]</div>
-			</div>
-		</div>
-		<div class="song__rigt_side">
-			<div class="song_options">
-			<div class="up_container">
-				<input
-				class="radio_vote_up"
-				:name="'radio-group' + song.id"
-				type="radio"
-				:id="'up' + song.id"
-				value="up"
-				v-on:change="voteUp('up')"
-				>
-				<label :for="'up' + song.id" class="radio-custom-label up"></label>
-			</div>
-			<div
-				v-if="connection.admin && connection.type !== 1"
-				class="menu_container"
-				v-on:click="openMenu"
-			>
-				<i class="fas fa-ellipsis-h menu"></i>
-			</div>
-			<div class="down_container">
-				<input
-				class="radio_vote_down"
-				:name="'radio-group' + song.id"
-				type="radio"
-				:id="'down' + song.id"
-				value="down"
-				v-on:change="voteDown('down')"
-				>
-				<label :for="'down' + song.id" class="radio-custom-label down"></label>
-			</div>
-			</div>
-		</div>
-		</div>
-		<div class="song_menu" v-if="showMenu" v-on:click.stop>
-			<div class="song_menu_list">
-				<div class="list_item">Remove</div>
-				<div class="list_line"></div>
-				<div class="list_item" v-on:click="showMenu = false">Close</div>
-			</div>
-		</div>
-	</div>
+  <div class="container">
+    <div class="song" v-bind:class="{'hover': showMenu}">
+      <div class="song__left_side">
+        <div
+          class="song_image"
+          v-bind:style="{ backgroundImage: 'url(' + song.data.thumbnailUrl + ')' }"
+        ></div>
+        <div class="song_info">
+          <div class="label">{{ song.name }}</div>
+          <div class="artist">{{ song.artist }}</div>
+          <div v-if="song.data.suggested" class="added_by">[Suggested by PartyBox]</div>
+        </div>
+      </div>
+      <div class="song__rigt_side">
+        <div class="song_options">
+          <div class="up_container">
+            <input
+              class="radio_vote_up"
+              :name="'radio-group' + song.id"
+              type="radio"
+              :id="'up' + song.id"
+              value="up"
+              v-on:change="voteUp('up')"
+            >
+            <label :for="'up' + song.id" class="radio-custom-label up"></label>
+          </div>
+          <div
+            v-if="connection.admin && connection.type !== 1"
+            class="menu_container"
+            v-on:click="openMenu"
+          >
+            <i class="fas fa-ellipsis-h menu"></i>
+          </div>
+          <div class="down_container">
+            <input
+              class="radio_vote_down"
+              :name="'radio-group' + song.id"
+              type="radio"
+              :id="'down' + song.id"
+              value="down"
+              v-on:change="voteDown('down')"
+            >
+            <label :for="'down' + song.id" class="radio-custom-label down"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="song_menu" v-if="showMenu" v-on:click.stop>
+      <div class="song_menu_list">
+        <div class="list_item">Remove</div>
+        <div class="list_line"></div>
+        <div class="list_item" v-on:click="showMenu = false">Close</div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">

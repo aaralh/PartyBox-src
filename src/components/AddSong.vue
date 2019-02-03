@@ -1,42 +1,38 @@
 <template>
-	<div>
-		<div class="add_song" v-on:click="close">
-		<div class="add_song_container" v-on:click.stop>
-			<div class="add_song_container_header">
-			<div class="add_song_container_header_title">
-				Add Song
-			</div>
-			</div>
-			<add-song-tabs v-on:add="add" v-on:close="close"></add-song-tabs>
-		</div>
-		</div>
-	</div>
+  <div>
+    <div class="add_song" v-on:click="close">
+      <div class="add_song_container" v-on:click.stop>
+        <div class="add_song_container_header">
+          <div class="add_song_container_header_title">Add Song</div>
+        </div>
+        <add-song-tabs v-on:add="add" v-on:close="close"></add-song-tabs>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-
 import AddSongTabs from "./AddSongTabs.vue";
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
     AddSongTabs
-  },
+  }
 })
 export default class AddSong extends Vue {
-    public close() {
-      this.$emit("close");
-    };
+  public close() {
+    this.$emit("close");
+  }
 
-    public add(song) {
-      this.$emit("add", song);
-    };
-};
+  public add(song) {
+    this.$emit("add", song);
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
 .add_song {
   position: absolute;
   top: 0;

@@ -1,18 +1,22 @@
 <template>
-	<div class="song_list">
-		<transition-group class="song_list_list" name="song_list_transition">
-			<song-list-item :song="song" v-on:voted="votingEvent" v-for="song in sortedList" :key="song.id"></song-list-item>
-		</transition-group>
-	</div>
+  <div class="song_list">
+    <transition-group class="song_list_list" name="song_list_transition">
+      <song-list-item
+        :song="song"
+        v-on:voted="votingEvent"
+        v-for="song in sortedList"
+        :key="song.id"
+      ></song-list-item>
+    </transition-group>
+  </div>
 </template>
 
 <script lang="ts">
-
 import SongListItem from "./SongListItem.vue";
-import { mapGetters } from 'vuex'
-import { Song } from '@/components/Partybox.vue';
+import { mapGetters } from "vuex";
+import { Song } from "@/components/Partybox.vue";
 
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
@@ -27,7 +31,11 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
       this.songlist.sort(function(first: Song, second: Song) {
         let pointsFirst = first.points;
         let pointsSecond = second.points;
-        return pointsFirst < pointsSecond ? -1 : pointsFirst > pointsSecond ? 1 : 0;
+        return pointsFirst < pointsSecond
+          ? -1
+          : pointsFirst > pointsSecond
+          ? 1
+          : 0;
       });
       this.songlist.reverse();
       return this.songlist;
@@ -41,9 +49,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
       this.songlist.reverse();
       return this.songlist;
     },
-    ...mapGetters(['connection'])
+    ...mapGetters(["connection"])
   },
-  sockets:{
+  sockets: {
     voted: function(data) {
       let songId = data.songId;
       let change = data.change;
@@ -53,15 +61,14 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
         }
       }
     }
-  },
+  }
 })
-export default class SongList extends Vue{
-  
+export default class SongList extends Vue {
   mounted() {
-    if(this.$props.songlist.length > 1) {
+    if (this.$props.songlist.length > 1) {
       this.$props.songlist = this.sortedList();
     }
-  };
+  }
 
   votingEvent(msg) {
     let song: Song | undefined = undefined;
@@ -72,14 +79,19 @@ export default class SongList extends Vue{
     }
     if (song !== undefined) {
       song.points = song.points + msg.change;
-      this.$socket.emit("vote", {songId: msg.id, roomId: (this as any).connection.roomId, change: msg.change})
+      this.$socket.emit("vote", {
+        songId: msg.id,
+        roomId: (this as any).connection.roomId,
+        change: msg.change
+      });
     }
-  };
-};
+  }
+}
 </script>
 
 <style lang="scss">
-.song_list_transition-enter-active, .song_list_transition-leave-active {
+.song_list_transition-enter-active,
+.song_list_transition-leave-active {
   transition: all 1s;
 }
 .song_list_transition-enter, .song_list_transition-leave-to /* .list-leave-active below version 2.1.8 */ {
@@ -106,5 +118,4 @@ export default class SongList extends Vue{
     width: 95%;
   }
 }
-
 </style>

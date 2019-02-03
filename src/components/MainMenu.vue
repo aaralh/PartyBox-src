@@ -1,18 +1,18 @@
 <template>
-	<div class="main_menu" v-on:click="clicked({id: -1})">
-		<div class="main_menu_container" v-on:click.stop>
-		<main-menu-item
-			v-on:clicked="clicked"
-			:item="item"
-			v-for="item in menuItems"
-			v-if="item.type === 0"
-			:key="item.id"
-		></main-menu-item>
-		<div class="main_menu_container_info">
-			<div class="room_info">Connected to room: {{ connection.roomId }}</div>
-		</div>
-		</div>
-	</div>
+  <div class="main_menu" v-on:click="clicked({id: -1})">
+    <div class="main_menu_container" v-on:click.stop>
+      <main-menu-item
+        v-on:clicked="clicked"
+        :item="item"
+        v-for="item in menuItems"
+        v-if="item.type === 0"
+        :key="item.id"
+      ></main-menu-item>
+      <div class="main_menu_container_info">
+        <div class="room_info">Connected to room: {{ connection.roomId }}</div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">

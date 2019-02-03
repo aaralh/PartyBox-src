@@ -1,42 +1,42 @@
 <template>
-	<div id="frontpage">
-		<div class="navbar">
-		<div class="logo-container">
-			<img href="./index.html" class="logo" src="../assets/partybox-logo.svg" alt="Partybox logo">
-			<div class="top-right">beta</div>
-		</div>
-		<div class="party-tab active">
-			<div class="tab-content">Party</div>
-		</div>
-		</div>
-		<a href="./index.html" class="button"></a>
-		<div class="content">
-		<div class="host_container">
-			<button v-on:click="createPartyPupShow = true" id="host" class="host_party">
-			<div class="image_overlay">
-				<div class="image_text">Host party?</div>
-			</div>
-			</button>
-		</div>
-		<div class="join_container" v-on:click.stop>
-			<button class="join_party" v-on:click="joinPartyPupShow = true">
-			<div class="image_overlay">
-				<div class="image_text">Join party?</div>
-			</div>
-			</button>
-		</div>
-		<join-party
-			v-on:connected="connected"
-			v-on:close="joinPartyPupShow = false"
-			v-if="joinPartyPupShow"
-		></join-party>
-		<create-party
-			v-on:close="createPartyPupShow = false"
-			v-on:create_room="hostParty"
-			v-if="createPartyPupShow"
-		></create-party>
-		</div>
-	</div>
+  <div id="frontpage">
+    <div class="navbar">
+      <div class="logo-container">
+        <img href="./index.html" class="logo" src="../assets/partybox-logo.svg" alt="Partybox logo">
+        <div class="top-right">beta</div>
+      </div>
+      <div class="party-tab active">
+        <div class="tab-content">Party</div>
+      </div>
+    </div>
+    <a href="./index.html" class="button"></a>
+    <div class="content">
+      <div class="host_container">
+        <button v-on:click="createPartyPupShow = true" id="host" class="host_party">
+          <div class="image_overlay">
+            <div class="image_text">Host party?</div>
+          </div>
+        </button>
+      </div>
+      <div class="join_container" v-on:click.stop>
+        <button class="join_party" v-on:click="joinPartyPupShow = true">
+          <div class="image_overlay">
+            <div class="image_text">Join party?</div>
+          </div>
+        </button>
+      </div>
+      <join-party
+        v-on:connected="connected"
+        v-on:close="joinPartyPupShow = false"
+        v-if="joinPartyPupShow"
+      ></join-party>
+      <create-party
+        v-on:close="createPartyPupShow = false"
+        v-on:create_room="hostParty"
+        v-if="createPartyPupShow"
+      ></create-party>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">

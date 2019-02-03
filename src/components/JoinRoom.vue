@@ -1,22 +1,22 @@
 <template>
-	<div class="join_room_container" v-on:click="close">
-		<div class="join_room" v-on:click.stop>
-		<div class="panel_header">Join party!</div>
+  <div class="join_room_container" v-on:click="close">
+    <div class="join_room" v-on:click.stop>
+      <div class="panel_header">Join party!</div>
 
-		<div class="field_button_container">
-			<input
-			@keydown.enter="connectRoom"
-			v-model="roomId"
-			placeholder="Input party code here!"
-			class="roomId_field"
-			type="text"
-			>
-			<button class="join_to_room" v-on:click="connectRoom">Join</button>
-		</div>
-		<div class="error_message">{{ errorMsg }}</div>
-		<button class="close_panel" v-on:click="close">Close</button>
-		</div>
-	</div>
+      <div class="field_button_container">
+        <input
+          @keydown.enter="connectRoom"
+          v-model="roomId"
+          placeholder="Input party code here!"
+          class="roomId_field"
+          type="text"
+        >
+        <button class="join_to_room" v-on:click="connectRoom">Join</button>
+      </div>
+      <div class="error_message">{{ errorMsg }}</div>
+      <button class="close_panel" v-on:click="close">Close</button>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">

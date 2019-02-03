@@ -1,29 +1,38 @@
 <template>
-	<div class="youtube">
-		<div class="video_inputs">
-		<div class="video_url video_input">
-			<div class="video_input_title">Url*:</div>
-			<input class="video_url_input" v-model="url" placeholder="Url of the video">
-		</div>
-		<div class="error_message">{{ errorMsg }}</div>
-		<div class="required_fields">*required field</div>
-		</div>
-		<div class="bottom_buttons" role="group" id="toolBtns">
-			<button role="button" class="btn btn-lg btn-primary bottom_buttons_cancel" v-on:click="close"> Cancel </button>
-			<div class="add_button_container">
-			<button role="button" class="btn btn-lg btn-primary bottom_buttons_add" v-on:click="add"> <div v-if="!showLoader">Add</div> <div v-if="showLoader" class="lds-ring"><div></div><div></div><div></div><div></div></div> </button>       
-			</div>
-		</div>
-	</div>
+  <div class="youtube">
+    <div class="video_inputs">
+      <div class="video_url video_input">
+        <div class="video_input_title">Url*:</div>
+        <input class="video_url_input" v-model="url" placeholder="Url of the video">
+      </div>
+      <div class="error_message">{{ errorMsg }}</div>
+      <div class="required_fields">*required field</div>
+    </div>
+    <div class="bottom_buttons" role="group" id="toolBtns">
+      <button
+        role="button"
+        class="btn btn-lg btn-primary bottom_buttons_cancel"
+        v-on:click="close"
+      >Cancel</button>
+      <div class="add_button_container">
+        <button role="button" class="btn btn-lg btn-primary bottom_buttons_add" v-on:click="add">
+          <div v-if="!showLoader">Add</div>
+          <div v-if="showLoader" class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
 
-import { Component, Prop, Vue } from 'vue-property-decorator';
-
-@Component({
-
-})
+@Component({})
 export default class YoutubeComponent extends Vue {
   public url = "";
   public errorMsg = "";
@@ -32,57 +41,66 @@ export default class YoutubeComponent extends Vue {
   public close() {
     this.errorMsg = "";
     this.$emit("close");
-  };
+  }
 
   public add() {
     this.showLoader = true;
     this.errorMsg = "";
     let videoData = this.getVideoId(this.url);
-    if(videoData.status === 200) {
+    if (videoData.status === 200) {
       let videoId = videoData.videoId;
-      this.$socket.on('videoInfo', this.addVideo);
+      this.$socket.on("videoInfo", this.addVideo);
     } else {
       this.errorMsg = videoData.msg!;
       this.showLoader = false;
     }
-  };
+  }
 
   public getVideoId(url: string) {
     let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     let match = url.match(regExp);
     if (match && match[2].length == 11) {
-      this.$socket.emit('getVideoInfo', match[2]);
-      return {status: 200, videoId: match[2]};
+      this.$socket.emit("getVideoInfo", match[2]);
+      return { status: 200, videoId: match[2] };
     } else {
-      return {status: 404, msg: "Url is not real video url!"};
-    }
-  };
-
-  public getVideoThumbnail(videoId: string) {
-    let url = `https://img.youtube.com/vi/${videoId}/default.jpg`
-    return url;
-  };
-
-  public addVideo(data: {status: number, title: string, owner: string, videoId: string}) {
-    this.$socket.removeAllListeners("videoInfo");
-    this.showLoader = false;
-    if(data.status === 200) {
-      this.$emit("add", {
-          id: -1,
-          name: data.title,
-          artist: data.owner,
-          points: 0,
-          data: { source: 0, url: data.videoId, thumbnailUrl: this.getVideoThumbnail(data.videoId), duration: 0, currentTime: 0 }
-        });
+      return { status: 404, msg: "Url is not real video url!" };
     }
   }
 
-};
+  public getVideoThumbnail(videoId: string) {
+    let url = `https://img.youtube.com/vi/${videoId}/default.jpg`;
+    return url;
+  }
+
+  public addVideo(data: {
+    status: number;
+    title: string;
+    owner: string;
+    videoId: string;
+  }) {
+    this.$socket.removeAllListeners("videoInfo");
+    this.showLoader = false;
+    if (data.status === 200) {
+      this.$emit("add", {
+        id: -1,
+        name: data.title,
+        artist: data.owner,
+        points: 0,
+        data: {
+          source: 0,
+          url: data.videoId,
+          thumbnailUrl: this.getVideoThumbnail(data.videoId),
+          duration: 0,
+          currentTime: 0
+        }
+      });
+    }
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
 .lds-ring {
   display: flex;
   flex-direction: row;
@@ -121,7 +139,6 @@ export default class YoutubeComponent extends Vue {
   }
 }
 
-
 .youtube {
   max-height: 55vh;
   width: 100%;
@@ -149,7 +166,7 @@ export default class YoutubeComponent extends Vue {
   flex-direction: column;
 }
 
-.video_url_input  {
+.video_url_input {
   width: 95%;
   height: 50%;
   border-radius: 5px;

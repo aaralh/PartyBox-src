@@ -1,31 +1,31 @@
 <template>
-	<div v-if="connection.roomId !== -1" id="partybox">
-		<main>
-		<navigation-bar v-on:event="event"></navigation-bar>
-		<song-player
-			v-if="connection.admin"
-			ref="player"
-			v-on:ended="playerEnd"
-			v-on:seekTo="playerSeekTo"
-		></song-player>
-		<song-list :songlist="this.songlist"></song-list>
-		<add-song v-on:add="addSong" v-on:close="closeSongPup" v-if="showAddSongPup"></add-song>
-		<youtube-player
-			ref="youtube"
-			:song="nowPlaying"
-			v-on:ended="end"
-			v-on:close="closeYoutubePup"
-			v-if="showYoutubePup && connection.admin"
-			v-on:seekTo="seekTo"
-		></youtube-player>
-		<add-user v-on:close="closeUserAddPup" v-if="showAddUserPup"></add-user>
-		<join-room
-			v-on:connected="connected"
-			v-on:close="showJoinCollabPup = false"
-			v-if="showJoinCollabPup"
-		></join-room>
-		</main>
-	</div>
+  <div v-if="connection.roomId !== -1" id="partybox">
+    <main>
+      <navigation-bar v-on:event="event"></navigation-bar>
+      <song-player
+        v-if="connection.admin"
+        ref="player"
+        v-on:ended="playerEnd"
+        v-on:seekTo="playerSeekTo"
+      ></song-player>
+      <song-list :songlist="this.songlist"></song-list>
+      <add-song v-on:add="addSong" v-on:close="closeSongPup" v-if="showAddSongPup"></add-song>
+      <youtube-player
+        ref="youtube"
+        :song="nowPlaying"
+        v-on:ended="end"
+        v-on:close="closeYoutubePup"
+        v-if="showYoutubePup && connection.admin"
+        v-on:seekTo="seekTo"
+      ></youtube-player>
+      <add-user v-on:close="closeUserAddPup" v-if="showAddUserPup"></add-user>
+      <join-room
+        v-on:connected="connected"
+        v-on:close="showJoinCollabPup = false"
+        v-if="showJoinCollabPup"
+      ></join-room>
+    </main>
+  </div>
 </template>
 
 <script lang="ts">
