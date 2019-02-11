@@ -1,5 +1,5 @@
 # Partybox
 
-Source code for PartyBox. See in production [here](http://akalhainen.me/partybox/).
+Source code for PartyBox. See in production [here](http://partybox.dy.fi:5000).
 
 PartyBox is playlist application where users can create rooms and invite friends to add and vote songs. Playing order is based on votes given.
